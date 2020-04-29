@@ -1,7 +1,7 @@
 import React from "react"
 
 import Layout from "../components/layout/layout"
-import SEO from "../components/seo/seo"
+import SEO from "../components/SEO/seo"
 
 import { Divider } from "../styled-components/index"
 import { SocialLinks } from "../styled-components/about"
@@ -17,7 +17,7 @@ const SecondPage = () => (
       readable English
     </p>
     <SocialLinks>
-      <a href="https://muriuki.dev">Website</a>
+      <a href="https://zhao-ji.github.com">Website</a>
       <Divider />
       <a href="https://github.com/thecodemint/gatsby-starter-simple">Github</a>
     </SocialLinks>
