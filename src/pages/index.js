@@ -16,20 +16,10 @@ import "../styles/index.scss"
 const PAGE_LIMIT = 30;
 
 export default function IndexPage() {
-    const [page, changePage] = useState(1);
-    const [pageCount, changePageCount] = useState(Math.ceil(836693 / PAGE_LIMIT));
-    const [articles, changeArticles] = useState([]);
+    const pageCount = Math.ceil(836693 / PAGE_LIMIT);
 
-    /*useEffect(() => {
-        axios
-            .get("https://article.minganci.org/pagecount")
-            .then(response => {
-                changePageCount(response.data);
-            })
-            .catch(error => {
-                console.log('fetching error');
-            })
-    }, []);*/
+    const [page, changePage] = useState(1);
+    const [articles, changeArticles] = useState([]);
 
     useEffect(() => {
         const config = {
@@ -47,6 +37,16 @@ export default function IndexPage() {
             })
     }, [page]);
 
+    const deletePost = (postId) => {
+        axios.delete(`https://api.article.minganci.org/${postId}`)
+            .then(response => {
+                changeArticles(articles.filter(article => article[0] !== postId));
+            })
+            .catch(error => {
+                console.log('fetching error');
+            })
+    }
+
     return (
       <Layout>
         <SEO title="Home" />
@@ -58,7 +58,14 @@ export default function IndexPage() {
                       <Title content={content} />
                   </BlogTitle>
               </BlogLink>
-              <time>{new Date(time).toDateString()}</time>
+              <div>
+                  <time>{new Date(time).toDateString()}</time>
+                  <button onClick={() => deletePost(id)} style={{
+                      float: 'right',
+                  }}>
+                      Delete
+                  </button>
+              </div>
               <p>
                   <Title content={content} />
               </p>
